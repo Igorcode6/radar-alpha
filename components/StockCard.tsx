@@ -32,7 +32,23 @@ export default function StockCard({ analise }: StockCardProps) {
             {inicialBadge(analise.ticker)}
           </span>
           <div>
-            <p className="font-mono text-lg font-semibold">{analise.ticker}</p>
+            <div className="flex items-center gap-2">
+              <p className="font-mono text-lg font-semibold">{analise.ticker}</p>
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-mono uppercase tracking-wide ${
+                  analise.origemAnalise === "dados_reais"
+                    ? "bg-sage-500/10 text-sage-600"
+                    : "bg-mist/10 text-mist"
+                }`}
+                title={
+                  analise.origemAnalise === "dados_reais"
+                    ? "Preço e indicadores vindos da brapi.dev agora mesmo"
+                    : "Dado de demonstração, não é cotação real"
+                }
+              >
+                {analise.origemAnalise === "dados_reais" ? "ao vivo" : "demo"}
+              </span>
+            </div>
             <p className="text-sm text-mist">
               {analise.nomeEmpresa} · {analise.setor}
             </p>

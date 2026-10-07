@@ -33,7 +33,7 @@ export async function analisarAcoes(
       recomendacao,
       perfilAnalisado: perfil,
       geradoEm: new Date().toISOString(),
-      origemAnalise: "mock",
+      origemAnalise: acao.origem ?? "mock",
     };
 
     return analise;

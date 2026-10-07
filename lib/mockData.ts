@@ -9,7 +9,19 @@ export interface AcaoMock {
   nomeEmpresa: string;
   setor: string;
   indicadores: IndicadoresFundamentalistas;
+  origem?: "mock" | "dados_reais";
 }
+
+// A brapi.dev não retorna o setor da empresa nos módulos que usamos, então
+// mantemos esse mapa local como complemento, mesmo quando os outros dados
+// vêm reais. Ticker novo sem entrada aqui cai em "Não classificado".
+export const SETORES_CONHECIDOS: Record<string, string> = {
+  PETR4: "Petróleo e Gás",
+  VALE3: "Mineração",
+  ITUB4: "Bancos",
+  WEGE3: "Bens Industriais",
+  BBAS3: "Bancos",
+};
 
 export const ACOES_MOCK: Record<string, AcaoMock> = {
   PETR4: {
