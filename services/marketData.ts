@@ -64,10 +64,9 @@ function montarHeaders(): HeadersInit {
 
 async function buscarEndpoint<T>(
   caminho: string,
-  tickersCsv: string
-): Promise<Map<string, T>> {
-  const resultado = new Map<string, T>();
-  const url = `${BRAPI_BASE_URL}/${caminho}?symbols=${encodeURIComponent(tickersCsv)}`;
+  ticker: string
+): Promise<T | null> {
+  const url = `${BRAPI_BASE_URL}/${caminho}?symbols=${encodeURIComponent(ticker)}`;
 
   try {
     const resposta = await fetch(url, {
@@ -78,20 +77,17 @@ async function buscarEndpoint<T>(
 
     if (!resposta.ok) {
       console.warn(
-        `brapi (${caminho}) respondeu ${resposta.status} para ${tickersCsv} — caindo para mock nesses tickers.`
+        `brapi (${caminho}) respondeu ${resposta.status} para ${ticker} — caindo para mock nesse ticker.`
       );
-      return resultado;
+      return null;
     }
 
     const dados: BrapiV2Response<T> = await resposta.json();
-    for (const item of dados.results ?? []) {
-      resultado.set(item.symbol, item.data);
-    }
+    return dados.results?.[0]?.data ?? null;
   } catch (erro) {
-    console.warn(`Falha ao buscar brapi (${caminho}), caindo para mock:`, erro);
+    console.warn(`Falha ao buscar brapi (${caminho}) para ${ticker}, caindo para mock:`, erro);
+    return null;
   }
-
-  return resultado;
 }
 
 function calcularQuedaDesde52Semanas(
@@ -112,69 +108,84 @@ function calcularDividaLiquidaEbitda(
   return Number((dividaLiquida / ebitda).toFixed(2));
 }
 
+async function buscarDadosReaisUmaAcao(ticker: string): Promise<AcaoMock | null> {
+  // O plano gratuito da brapi rejeita o lote inteiro quando um dos tickers
+  // pedidos não é suportado por ele (ex: misturar PETR4 com WEGE3). Por
+  // isso buscamos um ticker de cada vez: um ticker sem acesso só derruba
+  // ele mesmo (cai pro mock), nunca os outros da lista.
+  const cotacao = await buscarEndpoint<QuoteData>("quote", ticker);
+
+  // Sem preço, não temos nada confiável pra mostrar — melhor deixar o
+  // fallback pro mock assumir do que exibir zeros.
+  if (!cotacao?.regularMarketPrice) return null;
+
+  const [stats, financeiro] = await Promise.all([
+    buscarEndpoint<StatisticsData>("statistics", ticker),
+    buscarEndpoint<FinancialData>("financial-data", ticker),
+  ]);
+
+  return montarAcao(ticker, cotacao, stats ?? {}, financeiro ?? {});
+}
+
 async function buscarDadosReaisVariasAcoes(
   tickers: string[]
 ): Promise<Map<string, AcaoMock>> {
   const encontrados = new Map<string, AcaoMock>();
   if (tickers.length === 0) return encontrados;
 
-  const tickersCsv = tickers.join(",");
-
-  const [cotacoes, estatisticas, financeiros] = await Promise.all([
-    buscarEndpoint<QuoteData>("quote", tickersCsv),
-    buscarEndpoint<StatisticsData>("statistics", tickersCsv),
-    buscarEndpoint<FinancialData>("financial-data", tickersCsv),
-  ]);
-
+  // Sequencial (não Promise.all) porque o plano gratuito da brapi só
+  // permite 1 requisição simultânea por chave.
   for (const ticker of tickers) {
-    const cotacao = cotacoes.get(ticker);
-    // Sem preço, não temos nada confiável pra mostrar — melhor deixar o
-    // fallback pro mock assumir do que exibir zeros.
-    if (!cotacao?.regularMarketPrice) continue;
-
-    const stats = estatisticas.get(ticker) ?? {};
-    const financeiro = financeiros.get(ticker) ?? {};
-
-    encontrados.set(ticker, {
-      ticker,
-      nomeEmpresa: cotacao.longName ?? cotacao.shortName ?? ticker,
-      setor: SETORES_CONHECIDOS[ticker] ?? "Não classificado",
-      origem: "dados_reais",
-      indicadores: {
-        precoAtual: cotacao.regularMarketPrice,
-        variacaoDia: cotacao.regularMarketChangePercent ?? 0,
-        pl: stats.trailingPE ?? 0,
-        roe: (financeiro.returnOnEquity ?? 0) * 100,
-        dy: (stats.dividendYield ?? 0) * 100,
-        dividaLiquidaEbitda: calcularDividaLiquidaEbitda(
-          financeiro.totalDebt,
-          financeiro.totalCash,
-          financeiro.ebitda
-        ),
-        crescimentoReceita5a:
-          (financeiro.revenueGrowthAnnual ?? financeiro.revenueGrowth ?? 0) * 100,
-        quedaDesde52Semanas: calcularQuedaDesde52Semanas(
-          cotacao.regularMarketPrice,
-          cotacao.fiftyTwoWeekHigh
-        ),
-        // A brapi não expõe volatilidade pronta nesses módulos; aproximamos
-        // pela amplitude entre máxima e mínima de 52 semanas até termos uma
-        // fonte melhor pra isso.
-        volatilidade30d:
-          cotacao.fiftyTwoWeekHigh && cotacao.fiftyTwoWeekLow
-            ? Number(
-                (
-                  ((cotacao.fiftyTwoWeekHigh - cotacao.fiftyTwoWeekLow) /
-                    cotacao.fiftyTwoWeekHigh) *
-                  100
-                ).toFixed(1)
-              )
-            : 0,
-      },
-    });
+    const acao = await buscarDadosReaisUmaAcao(ticker);
+    if (acao) encontrados.set(ticker, acao);
   }
 
   return encontrados;
+}
+
+function montarAcao(
+  ticker: string,
+  cotacao: QuoteData,
+  stats: StatisticsData,
+  financeiro: FinancialData
+): AcaoMock {
+  return {
+    ticker,
+    nomeEmpresa: cotacao.longName ?? cotacao.shortName ?? ticker,
+    setor: SETORES_CONHECIDOS[ticker] ?? "Não classificado",
+    origem: "dados_reais",
+    indicadores: {
+      precoAtual: cotacao.regularMarketPrice!,
+      variacaoDia: cotacao.regularMarketChangePercent ?? 0,
+      pl: stats.trailingPE ?? 0,
+      roe: (financeiro.returnOnEquity ?? 0) * 100,
+      dy: (stats.dividendYield ?? 0) * 100,
+      dividaLiquidaEbitda: calcularDividaLiquidaEbitda(
+        financeiro.totalDebt,
+        financeiro.totalCash,
+        financeiro.ebitda
+      ),
+      crescimentoReceita5a:
+        (financeiro.revenueGrowthAnnual ?? financeiro.revenueGrowth ?? 0) * 100,
+      quedaDesde52Semanas: calcularQuedaDesde52Semanas(
+        cotacao.regularMarketPrice,
+        cotacao.fiftyTwoWeekHigh
+      ),
+      // A brapi não expõe volatilidade pronta nesses módulos; aproximamos
+      // pela amplitude entre máxima e mínima de 52 semanas até termos uma
+      // fonte melhor pra isso.
+      volatilidade30d:
+        cotacao.fiftyTwoWeekHigh && cotacao.fiftyTwoWeekLow
+          ? Number(
+              (
+                ((cotacao.fiftyTwoWeekHigh - cotacao.fiftyTwoWeekLow) /
+                  cotacao.fiftyTwoWeekHigh) *
+                100
+              ).toFixed(1)
+            )
+          : 0,
+    },
+  };
 }
 
 export async function buscarDadosAcao(ticker: string): Promise<AcaoMock | null> {
