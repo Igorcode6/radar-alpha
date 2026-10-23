@@ -17,7 +17,7 @@ export const PERFIS: PerfilInfo[] = [
     id: "volatilidade",
     nome: "Volatilidade",
     descricao: "Foca em ações com movimento de preço forte para operações rápidas.",
-    foco: "Volatilidade recente alta e variação do dia relevante.",
+    foco: "Oscilação de preço alta e variação do dia relevante.",
   },
 ];
 

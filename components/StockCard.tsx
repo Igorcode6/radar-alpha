@@ -5,9 +5,9 @@ interface StockCardProps {
 }
 
 const CORES_RECOMENDACAO: Record<AnaliseAcao["recomendacao"], string> = {
-  comprar: "text-sage-500 border-sage-500/40 bg-sage-500/10",
-  observar: "text-amber-500 border-amber-500/40 bg-amber-100",
-  evitar: "text-terracotta-500 border-terracotta-500/40 bg-terracotta-500/10",
+  comprar: "text-brand border-sage-500/40 bg-sage-500/10",
+  observar: "text-caution border-amber-500/40 bg-amber-100 dark:bg-amber-500/10",
+  evitar: "text-negative border-terracotta-500/40 bg-terracotta-500/10",
 };
 
 const LABEL_RECOMENDACAO: Record<AnaliseAcao["recomendacao"], string> = {
@@ -28,7 +28,7 @@ export default function StockCard({ analise }: StockCardProps) {
     <div className="rounded-xl border border-cream-border bg-cream-card p-6 dark:border-graphite-700 dark:bg-graphite-900">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-500/10 font-mono text-xs font-semibold text-sage-600">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-500/10 font-mono text-xs font-semibold text-brand">
             {inicialBadge(analise.ticker)}
           </span>
           <div>
@@ -37,16 +37,16 @@ export default function StockCard({ analise }: StockCardProps) {
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-mono uppercase tracking-wide ${
                   analise.origemAnalise === "dados_reais"
-                    ? "bg-sage-500/10 text-sage-600"
+                    ? "bg-sage-500/10 text-brand"
                     : "bg-mist/10 text-mist"
                 }`}
                 title={
                   analise.origemAnalise === "dados_reais"
-                    ? "Preço e indicadores vindos da brapi.dev agora mesmo"
+                    ? "Preço e indicadores vindos da brapi.dev. Podem ter atraso ou erros."
                     : "Dado de demonstração, não é cotação real"
                 }
               >
-                {analise.origemAnalise === "dados_reais" ? "ao vivo" : "demo"}
+                {analise.origemAnalise === "dados_reais" ? "dados reais" : "demo"}
               </span>
             </div>
             <p className="text-sm text-mist">
@@ -58,7 +58,7 @@ export default function StockCard({ analise }: StockCardProps) {
           <p className="font-display text-2xl font-semibold">
             R$ {indicadores.precoAtual.toFixed(2)}
           </p>
-          <p className={`font-mono text-xs ${positivo ? "text-sage-500" : "text-terracotta-500"}`}>
+          <p className={`font-mono text-xs ${positivo ? "text-brand" : "text-negative"}`}>
             {positivo ? "+" : ""}
             {indicadores.variacaoDia.toFixed(1)}% hoje
           </p>
@@ -70,11 +70,15 @@ export default function StockCard({ analise }: StockCardProps) {
         <Indicador label="ROE" valor={`${indicadores.roe.toFixed(1)}%`} />
         <Indicador label="DY" valor={`${indicadores.dy.toFixed(1)}%`} />
         <Indicador label="Dív/EBITDA" valor={indicadores.dividaLiquidaEbitda.toFixed(1)} />
-        <Indicador label="Cresc. 5a" valor={`${indicadores.crescimentoReceita5a.toFixed(1)}%`} />
+        <Indicador label="Cresc. receita" valor={`${indicadores.crescimentoReceita5a.toFixed(1)}%`} />
       </div>
 
       <div className="mt-5 flex items-center gap-4">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-sage-500/50 font-display text-lg font-semibold">
+        <div
+          role="img"
+          aria-label={`Score ${analise.score.toFixed(1)} de 10`}
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-sage-500/50 font-display text-lg font-semibold"
+        >
           {analise.score.toFixed(1)}
         </div>
         <p className="text-sm leading-relaxed text-ink-soft dark:text-cream/80">
@@ -94,7 +98,7 @@ export default function StockCard({ analise }: StockCardProps) {
 function Indicador({ label, valor }: { label: string; valor: string }) {
   return (
     <div>
-      <p className="text-mist/70">{label}</p>
+      <p className="text-mist">{label}</p>
       <p className="mt-0.5 font-medium text-ink dark:text-cream">{valor}</p>
     </div>
   );

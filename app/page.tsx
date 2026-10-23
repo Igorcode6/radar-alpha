@@ -4,12 +4,12 @@ import StatCard from "@/components/StatCard";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen">
+    <main id="conteudo" className="min-h-screen">
       <Header />
 
       <section className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-6 py-12 sm:py-20 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xl">
-          <p className="label-eyebrow text-sage-500">Radar de oportunidades · B3</p>
+          <p className="label-eyebrow text-brand">Radar de oportunidades · B3</p>
           <h1 className="mt-4 text-balance font-display text-4xl font-semibold leading-tight sm:text-5xl">
             Ações brasileiras, lidas do seu jeito de investir.
           </h1>
@@ -20,7 +20,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/analysis"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-sage-500 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-600"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-sage-600 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-700"
           >
             Analisar ações agora
           </Link>
@@ -29,11 +29,9 @@ export default function LandingPage() {
         <div className="grid w-full max-w-sm grid-cols-2 gap-4">
           <StatCard
             icone="pulso"
-            label="Ibovespa"
-            valor="128.742"
-            delta="+1,26%"
-            deltaPositivo
-            legenda="vs. período anterior"
+            label="Fonte dos dados"
+            valor="brapi.dev"
+            legenda="pode ter atraso"
           />
           <StatCard
             icone="raio"
@@ -71,7 +69,7 @@ export default function LandingPage() {
           <Etapa
             numero="03"
             titulo="Entenda o porquê"
-            texto="Uma explicação simples traduz os números em uma recomendação: comprar, observar ou evitar."
+            texto="Uma explicação simples traduz os números em um sinal: comprar, observar ou evitar. É informativo, não é recomendação de investimento."
           />
         </div>
       </section>
@@ -90,7 +88,7 @@ function Etapa({
 }) {
   return (
     <div className="rounded-xl border border-cream-border bg-cream-card p-6 dark:border-graphite-700 dark:bg-graphite-900">
-      <p className="font-mono text-xs text-sage-500">{numero}</p>
+      <p className="font-mono text-xs text-brand">{numero}</p>
       <p className="mt-2 font-display text-lg font-semibold">{titulo}</p>
       <p className="mt-2 text-sm leading-relaxed text-mist">{texto}</p>
     </div>

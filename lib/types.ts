@@ -16,9 +16,9 @@ export interface IndicadoresFundamentalistas {
   roe: number; // Retorno sobre Patrimônio (%)
   dy: number; // Dividend Yield (%)
   dividaLiquidaEbitda: number; // dívida líquida / EBITDA
-  crescimentoReceita5a: number; // % médio ao ano
+  crescimentoReceita5a: number; // % de crescimento de receita (com dados reais, o valor anual informado pela fonte)
   quedaDesde52Semanas: number; // % de queda em relação à máxima de 52 semanas
-  volatilidade30d: number; // desvio padrão anualizado, %
+  volatilidade30d: number; // %; com dados reais é a amplitude entre máxima e mínima de 52 semanas (aproximação)
 }
 
 export interface AnaliseAcao {

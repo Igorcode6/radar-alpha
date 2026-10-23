@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import ProfileSelector from "@/components/ProfileSelector";
 import StockCard from "@/components/StockCard";
@@ -59,7 +60,7 @@ export default function AnalysisPage() {
   const recomendadas = resultados.filter((r) => r.recomendacao === "comprar").length;
 
   return (
-    <main className="min-h-screen">
+    <main id="conteudo" className="min-h-screen">
       <Header />
 
       <section className="mx-auto max-w-5xl px-6 pb-24">
@@ -78,10 +79,12 @@ export default function AnalysisPage() {
               return (
                 <button
                   key={ticker}
+                  type="button"
+                  aria-pressed={ativo}
                   onClick={() => alternarTicker(ticker)}
                   className={`rounded-full border px-4 py-1.5 font-mono text-sm transition ${
                     ativo
-                      ? "border-sage-500 bg-sage-500/10 text-sage-600"
+                      ? "border-sage-500 bg-sage-500/10 text-brand"
                       : "border-cream-border text-mist hover:border-sage-500/40 dark:border-graphite-700"
                   }`}
                 >
@@ -93,18 +96,33 @@ export default function AnalysisPage() {
         </div>
 
         <button
+          type="button"
           onClick={analisar}
           disabled={!perfil || tickersSelecionados.length === 0 || carregando}
-          className="mt-8 rounded-full bg-sage-500 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-600 disabled:cursor-not-allowed disabled:bg-cream-border disabled:text-mist"
+          className="mt-8 rounded-full bg-sage-600 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-700 disabled:cursor-not-allowed disabled:bg-cream-border disabled:text-mist"
         >
           {carregando ? "Analisando..." : "Analisar"}
         </button>
+        {!perfil && (
+          <p className="mt-3 text-sm text-mist">Escolha um perfil para continuar.</p>
+        )}
 
         {erro && (
-          <p className="mt-4 rounded-xl border border-terracotta-500/40 bg-terracotta-500/10 px-4 py-3 text-sm text-terracotta-500">
+          <p
+            role="alert"
+            className="mt-4 rounded-xl border border-terracotta-500/40 bg-terracotta-500/10 px-4 py-3 text-sm text-negative"
+          >
             {erro}
           </p>
         )}
+
+        <p className="sr-only" role="status" aria-live="polite">
+          {carregando
+            ? "Analisando as ações."
+            : resultados.length > 0
+              ? `${resultados.length} ações analisadas.`
+              : ""}
+        </p>
 
         {resultados.length > 0 && (
           <>
@@ -133,6 +151,16 @@ export default function AnalysisPage() {
                 <StockCard key={analise.ticker} analise={analise} />
               ))}
             </div>
+
+            <p className="mt-6 text-sm leading-relaxed text-mist">
+              Conteúdo informativo e educacional, não é recomendação de investimento.
+              Os dados podem ter atraso ou erros, e a explicação pode ser gerada por
+              inteligência artificial. Veja os{" "}
+              <Link href="/termos" className="underline underline-offset-2">
+                Termos de Uso
+              </Link>
+              .
+            </p>
           </>
         )}
       </section>

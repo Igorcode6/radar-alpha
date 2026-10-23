@@ -50,9 +50,7 @@ export function gerarExplicacao(
 
   if (perfil === "volatilidade") {
     frases.push(
-      `${ticker} tem volatilidade recente de ${ind.volatilidade30d.toFixed(1)}% ao ano, ${
-        ind.volatilidade30d > 25 ? "acima da média" : "dentro da média"
-      } do mercado.`
+      `${ticker} teve uma amplitude de preço de ${ind.volatilidade30d.toFixed(1)}% entre a mínima e a máxima dos últimos 12 meses.`
     );
     frases.push(
       `Hoje a ação variou ${ind.variacaoDia > 0 ? "+" : ""}${ind.variacaoDia.toFixed(1)}%.`

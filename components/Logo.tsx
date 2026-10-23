@@ -3,6 +3,8 @@ export default function Logo() {
     <div className="flex items-center gap-3">
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-500 text-cream">
         <svg
+          aria-hidden="true"
+          focusable="false"
           width="18"
           height="18"
           viewBox="0 0 24 24"
@@ -17,7 +19,7 @@ export default function Logo() {
       </span>
       <div className="leading-tight">
         <p className="font-display text-lg font-semibold tracking-tight">
-          Radar<span className="text-sage-500">Alpha</span>
+          Radar<span className="text-brand">Alpha</span>
         </p>
         <p className="label-eyebrow -mt-0.5">Terminal de pesquisa</p>
       </div>

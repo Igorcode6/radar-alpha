@@ -3,6 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  /* Tema claro: tons mais escuros de texto (contraste mínimo 4.5:1). */
+  :root {
+    --mist: 92 99 93;
+    --brand-text: 36 110 85;
+    --neg-text: 163 56 44;
+    --caution-text: 122 78 12;
+  }
+  /* Tema escuro (padrão do site): tons mais claros. */
+  html.dark {
+    --mist: 138 143 137;
+    --brand-text: 63 168 120;
+    --neg-text: 224 120 107;
+    --caution-text: 201 138 46;
+  }
+
+  /* Foco visível para quem navega só com o teclado. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand-text));
+    outline-offset: 2px;
+  }
+
   body {
     @apply bg-cream text-ink font-body antialiased;
   }

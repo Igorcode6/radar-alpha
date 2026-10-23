@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -22,7 +23,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Radar Alpha — Terminal de pesquisa de ações",
   description:
-    "Escolha seu perfil de investidor e receba uma leitura clara das principais ações da B3.",
+    "Escolha seu perfil de investidor e veja uma leitura informativa das principais ações da B3. Conteúdo educacional, não é recomendação de investimento.",
 };
 
 export default function RootLayout({
@@ -35,7 +36,14 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable}`}
       >
+        <a
+          href="#conteudo"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-sage-600 focus:px-4 focus:py-2 focus:text-cream"
+        >
+          Pular para o conteúdo
+        </a>
         {children}
+        <Footer />
       </body>
     </html>
   );

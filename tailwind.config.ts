@@ -24,7 +24,13 @@ const config: Config = {
           400: "#3FA878",
           500: "#2F8F6D",
           600: "#246E55",
+          700: "#1C5A45",
         },
+        // Cores de TEXTO com contraste mínimo de 4.5:1 nos dois temas (WCAG AA).
+        // Os valores mudam em app/globals.css conforme o tema (claro/escuro).
+        brand: "rgb(var(--brand-text) / <alpha-value>)",
+        negative: "rgb(var(--neg-text) / <alpha-value>)",
+        caution: "rgb(var(--caution-text) / <alpha-value>)",
         // Alerta/atenção (âmbar) e negativo (terracota)
         amber: {
           100: "#F7ECD3",
@@ -33,7 +39,8 @@ const config: Config = {
         terracotta: {
           500: "#C1574A",
         },
-        mist: "#8A8F89",
+        // Texto secundário; escurece no tema claro para manter o contraste.
+        mist: "rgb(var(--mist) / <alpha-value>)",
         // Tema escuro (toggle)
         graphite: {
           950: "#111513",

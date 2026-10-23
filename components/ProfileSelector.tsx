@@ -19,6 +19,8 @@ export default function ProfileSelector({
         return (
           <button
             key={perfil.id}
+            type="button"
+            aria-pressed={selecionado}
             onClick={() => aoSelecionar(perfil.id)}
             className={`rounded-xl border p-5 text-left transition ${
               selecionado
@@ -28,7 +30,7 @@ export default function ProfileSelector({
           >
             <p className="font-display text-lg font-semibold">{perfil.nome}</p>
             <p className="mt-1 text-sm text-mist">{perfil.descricao}</p>
-            <p className="label-eyebrow mt-3 text-sage-500">{perfil.foco}</p>
+            <p className="label-eyebrow mt-3 text-brand">{perfil.foco}</p>
           </button>
         );
       })}

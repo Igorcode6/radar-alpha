@@ -45,7 +45,7 @@ Indicadores:
 - Dívida líquida/EBITDA: ${ind.dividaLiquidaEbitda.toFixed(1)}
 - Crescimento de receita: ${ind.crescimentoReceita5a.toFixed(1)}%
 - Queda desde a máxima de 52 semanas: ${ind.quedaDesde52Semanas.toFixed(1)}%
-- Volatilidade (30d): ${ind.volatilidade30d.toFixed(1)}%
+- Amplitude de preço entre a mínima e a máxima de 52 semanas: ${ind.volatilidade30d.toFixed(1)}%
 
 Escreva uma explicação curta (2 a 4 frases, português do Brasil, linguagem simples, sem jargão
 desnecessário) dizendo por que essa ação recebeu esse score para esse perfil específico. Cite os

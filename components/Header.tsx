@@ -9,7 +9,7 @@ export default function Header() {
         <Logo />
       </Link>
       <div className="flex items-center gap-5">
-        <nav className="hidden items-center gap-6 label-eyebrow sm:flex">
+        <nav aria-label="Principal" className="hidden items-center gap-6 label-eyebrow sm:flex">
           <Link href="/" className="transition hover:text-ink dark:hover:text-cream">
             Início
           </Link>
