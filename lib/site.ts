@@ -4,6 +4,6 @@
 export const SITE = {
   nome: "RadarAlpha",
   responsavel: "Igor",
-  email: "igordasilvaalves2011@gmail.com",
+  email: "radaralpha.contato@gmail.com",
   atualizadoEm: "23/10/2026",
 } as const;
