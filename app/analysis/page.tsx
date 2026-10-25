@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import ProfileSelector from "@/components/ProfileSelector";
-import StockCard from "@/components/StockCard";
+import ResultadosTabela from "@/components/ResultadosTabela";
 import StatCard from "@/components/StatCard";
 import { TICKERS_DISPONIVEIS } from "@/lib/mockData";
 import { AnaliseAcao, PerfilInvestidor } from "@/lib/types";
@@ -146,10 +146,8 @@ export default function AnalysisPage() {
               />
             </div>
 
-            <div className="mt-6 grid gap-5">
-              {resultados.map((analise) => (
-                <StockCard key={analise.ticker} analise={analise} />
-              ))}
+            <div className="mt-6">
+              <ResultadosTabela resultados={resultados} />
             </div>
 
             <p className="mt-6 text-sm leading-relaxed text-mist">
