@@ -5,7 +5,7 @@ export const PERFIS: PerfilInfo[] = [
     id: "longo_prazo",
     nome: "Longo prazo",
     descricao: "Prioriza empresas sólidas, com lucro consistente e menos dívida.",
-    foco: "P/L saudável, ROE alto, dívida baixa e histórico de crescimento.",
+    foco: "P/L saudável, ROE alto, dívida baixa e crescimento da receita.",
   },
   {
     id: "compra_na_queda",

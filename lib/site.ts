@@ -5,5 +5,5 @@ export const SITE = {
   responsavel: "Igor",
   email: "radaralpha.contato@gmail.com",
   github: "https://github.com/Igorcode6/radar-alpha",
-  atualizadoEm: "23/10/2026",
+  atualizadoEm: "28/10/2026",
 } as const;

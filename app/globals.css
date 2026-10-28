@@ -3,42 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-  /* Tema claro: tons mais escuros de texto (contraste mínimo 4.5:1). */
-  :root {
-    --mist: 92 99 93;
-    --brand-text: 36 110 85;
-    --neg-text: 163 56 44;
-    --caution-text: 122 78 12;
-  }
-  /* Tema escuro (padrão do site): tons mais claros. */
-  html.dark {
-    --mist: 138 143 137;
-    --brand-text: 63 168 120;
-    --neg-text: 224 120 107;
-    --caution-text: 201 138 46;
-  }
-
-  /* Foco visível para quem navega só com o teclado. */
-  :focus-visible {
-    outline: 2px solid rgb(var(--brand-text));
-    outline-offset: 2px;
+  html {
+    color-scheme: dark;
+    background-color: #0a0909;
   }
 
   body {
-    @apply bg-cream text-ink font-body antialiased;
+    @apply bg-fundo font-body text-creme antialiased;
   }
-  html.dark body {
-    @apply bg-graphite-950 text-cream;
+
+  /* Foco visível para quem navega só com o teclado (ouro claro, 10,8:1). */
+  :focus-visible {
+    outline: 2px solid #d8bc79;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgba(168, 137, 69, 0.35);
+    color: #e8e0d1;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  /* Rótulo pequeno em caixa alta, em dourado (títulos de seção). */
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.22em] text-ouro;
   }
 
-  .label-eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.12em] text-mist;
+  /* Rótulo pequeno em caixa alta, em cinza quente (campos e colunas). */
+  .rotulo {
+    @apply text-[11px] uppercase tracking-[0.18em] text-suave;
   }
 }
 

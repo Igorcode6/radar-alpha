@@ -1,7 +1,10 @@
 import type { Config } from "tailwindcss";
 
+// Paleta e tipografia da direção visual "luxo clássico": preto profundo com
+// dourado só como acento. Os contrastes sobre o fundo (#0A0909) foram medidos:
+// ouro 5,99:1, ouro claro 10,79:1, creme 15,17:1, suave 7,74:1, alta 7,31:1,
+// baixa 6,69:1. A cor "linha" (2,4:1) só serve de divisor decorativo.
 const config: Config = {
-  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -9,50 +12,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Fundo "papel" — terminal de pesquisa, não dashboard escuro genérico
-        cream: {
-          DEFAULT: "#F6F2E8",
-          card: "#FFFFFF",
-          border: "#E6E0D2",
+        fundo: "#0A0909",
+        superficie: "#171514",
+        creme: "#E8E0D1",
+        suave: "#AAA096",
+        ouro: {
+          DEFAULT: "#A88945",
+          claro: "#D8BC79",
+          apagado: "#7A6232", // bordas de botões e campos (3,4:1)
+          linha: "#654923", // só divisores decorativos
         },
-        ink: {
-          DEFAULT: "#14181A",
-          soft: "#434B47",
-        },
-        // Verde principal — sinal positivo e marca
-        sage: {
-          400: "#3FA878",
-          500: "#2F8F6D",
-          600: "#246E55",
-          700: "#1C5A45",
-        },
-        // Cores de TEXTO com contraste mínimo de 4.5:1 nos dois temas (WCAG AA).
-        // Os valores mudam em app/globals.css conforme o tema (claro/escuro).
-        brand: "rgb(var(--brand-text) / <alpha-value>)",
-        negative: "rgb(var(--neg-text) / <alpha-value>)",
-        caution: "rgb(var(--caution-text) / <alpha-value>)",
-        // Alerta/atenção (âmbar) e negativo (terracota)
-        amber: {
-          100: "#F7ECD3",
-          500: "#C98A2E",
-        },
-        terracotta: {
-          500: "#C1574A",
-        },
-        // Texto secundário; escurece no tema claro para manter o contraste.
-        mist: "rgb(var(--mist) / <alpha-value>)",
-        // Tema escuro (toggle)
-        graphite: {
-          950: "#111513",
-          900: "#161B18",
-          800: "#1D2320",
-          700: "#293330",
-        },
+        alta: "#4CAF7A",
+        baixa: "#E0786B",
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"],
       },
     },
   },

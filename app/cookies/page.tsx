@@ -18,18 +18,19 @@ export default function CookiesPage() {
 
       <h2>O que usamos</h2>
       <p>
-        O {SITE.nome} não define cookies de rastreamento, de publicidade nem de
-        análise de audiência. A única informação que o site grava no seu navegador é
-        a sua preferência de tema (claro ou escuro), usando o armazenamento local
-        (localStorage), com o nome <code>radar-theme</code>. Ela serve só para lembrar
-        sua escolha, fica no seu aparelho e não é enviada para nós.
+        O {SITE.nome} não define cookies próprios, nem de rastreamento, de
+        publicidade ou de análise de audiência, e não grava dados no armazenamento
+        local do seu navegador. Não há nada guardado no seu aparelho para
+        identificar você.
       </p>
 
-      <h2>Como apagar</h2>
+      <h2>Sobre o botão de tema</h2>
       <p>
-        Você pode apagar esse dado a qualquer momento nas configurações do seu
-        navegador, na parte de dados do site ou de armazenamento local. Se fizer
-        isso, o site volta ao tema escuro, que é o padrão.
+        Uma versão anterior do site tinha um botão de tema claro ou escuro, que
+        guardava a sua escolha no navegador (armazenamento local, com o nome{" "}
+        <code>radar-theme</code>). Esse botão foi removido e o dado não é mais
+        usado. Se você chegou a usá-lo, pode apagar o dado antigo nas configurações
+        do navegador, na parte de dados do site ou de armazenamento local.
       </p>
 
       <h2>Aviso de cookies</h2>

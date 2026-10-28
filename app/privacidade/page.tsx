@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import LegalLayout from "@/components/LegalLayout";
 import { SITE } from "@/lib/site";
 
@@ -40,14 +41,12 @@ export default function PrivacidadePage() {
           navegador e data e hora do acesso. Eles são registrados automaticamente pela
           empresa de hospedagem (Vercel) para manter o site funcionando e seguro.
         </li>
-        <li>
-          <strong>Preferência de tema (claro ou escuro):</strong> fica salva apenas no
-          seu próprio navegador e não é enviada para nós.
-        </li>
       </ul>
       <p>
-        Nós não usamos ferramentas de análise de audiência, pixels de anúncio ou
-        outros rastreadores.
+        O site também não grava cookies próprios nem dados no armazenamento local do
+        seu navegador, e não usa ferramentas de análise de audiência, pixels de
+        anúncio ou outros rastreadores. Veja a{" "}
+        <Link href="/cookies">Política de Cookies</Link>.
       </p>
 
       <h2>3. Para que usamos esses dados</h2>

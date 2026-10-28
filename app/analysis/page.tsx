@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Header from "@/components/Header";
+import Container from "@/components/Container";
+import Eyebrow from "@/components/Eyebrow";
 import ProfileSelector from "@/components/ProfileSelector";
 import ResultadosTabela from "@/components/ResultadosTabela";
-import StatCard from "@/components/StatCard";
 import { TICKERS_DISPONIVEIS } from "@/lib/mockData";
+import { formatarNumero } from "@/lib/formatar";
 import { AnaliseAcao, PerfilInvestidor } from "@/lib/types";
 
 export default function AnalysisPage() {
@@ -55,62 +56,67 @@ export default function AnalysisPage() {
 
   const scoreMedio =
     resultados.length > 0
-      ? (resultados.reduce((soma, r) => soma + r.score, 0) / resultados.length).toFixed(1)
+      ? formatarNumero(
+          resultados.reduce((soma, r) => soma + r.score, 0) / resultados.length,
+          1
+        )
       : null;
-  const recomendadas = resultados.filter((r) => r.recomendacao === "comprar").length;
+  const favoraveis = resultados.filter((r) => r.recomendacao === "comprar").length;
 
   return (
-    <main id="conteudo" className="min-h-screen">
-      <Header />
+    <main id="conteudo" className="flex-1">
+      <Container className="pb-24 pt-14 sm:pt-16">
+        <Eyebrow>Análise</Eyebrow>
+        <h1 className="mt-5 font-display text-[46px] font-normal leading-[1.15]">
+          Analisar ações
+        </h1>
+        <p className="mt-3 text-base leading-relaxed text-suave">
+          Escolha seu perfil e as ações que quer analisar.
+        </p>
 
-      <section className="mx-auto max-w-5xl px-6 pb-24">
-        <h1 className="font-display text-3xl font-semibold">Analisar ações</h1>
-        <p className="mt-2 text-mist">Escolha seu perfil e as ações que quer analisar.</p>
-
-        <div className="mt-8">
+        <p className="rotulo mt-12 tracking-[0.22em]">Perfil</p>
+        <div className="mt-3.5">
           <ProfileSelector perfilSelecionado={perfil} aoSelecionar={setPerfil} />
         </div>
 
-        <div className="mt-8">
-          <p className="label-eyebrow">Ações</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {TICKERS_DISPONIVEIS.map((ticker) => {
-              const ativo = tickersSelecionados.includes(ticker);
-              return (
-                <button
-                  key={ticker}
-                  type="button"
-                  aria-pressed={ativo}
-                  onClick={() => alternarTicker(ticker)}
-                  className={`rounded-md border px-4 py-1.5 font-mono text-sm transition ${
-                    ativo
-                      ? "border-sage-500 bg-sage-500/10 text-brand"
-                      : "border-cream-border text-mist hover:border-sage-500/40 dark:border-graphite-700"
-                  }`}
-                >
-                  {ticker}
-                </button>
-              );
-            })}
-          </div>
+        <p className="rotulo mt-10 tracking-[0.22em]">Ações</p>
+        <div className="mt-3.5 flex flex-wrap gap-3">
+          {TICKERS_DISPONIVEIS.map((ticker) => {
+            const ativo = tickersSelecionados.includes(ticker);
+            return (
+              <button
+                key={ticker}
+                type="button"
+                aria-pressed={ativo}
+                onClick={() => alternarTicker(ticker)}
+                className={`min-h-[44px] rounded border px-5 text-sm font-semibold tabular-nums transition ${
+                  ativo
+                    ? "border-ouro bg-superficie text-ouro-claro"
+                    : "border-ouro-apagado text-suave hover:border-ouro"
+                }`}
+              >
+                {ticker}
+              </button>
+            );
+          })}
         </div>
 
         <button
           type="button"
           onClick={analisar}
           disabled={!perfil || tickersSelecionados.length === 0 || carregando}
-          className="mt-8 rounded-md bg-sage-600 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-700 disabled:cursor-not-allowed disabled:bg-cream-border disabled:text-mist"
+          className="mt-9 min-h-[48px] rounded bg-gradient-to-br from-ouro to-ouro-claro px-8 text-sm font-semibold tracking-[0.06em] text-fundo transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {carregando ? "Analisando..." : "Analisar"}
         </button>
         {!perfil && (
-          <p className="mt-3 text-sm text-mist">Escolha um perfil para continuar.</p>
+          <p className="mt-3 text-sm text-suave">Escolha um perfil para continuar.</p>
         )}
 
         {erro && (
           <p
             role="alert"
-            className="mt-4 rounded-md border border-terracotta-500/40 bg-terracotta-500/10 px-4 py-3 text-sm text-negative"
+            className="mt-5 rounded border border-baixa/50 bg-baixa/10 px-4 py-3 text-sm text-baixa"
           >
             {erro}
           </p>
@@ -126,42 +132,67 @@ export default function AnalysisPage() {
 
         {resultados.length > 0 && (
           <>
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
-              <StatCard
-                icone="pulso"
-                label="Ações analisadas"
-                valor={String(resultados.length)}
-              />
-              <StatCard
-                icone="grafico"
-                label="Score médio"
+            <div className="mt-[72px] flex flex-wrap border-y border-ouro-linha">
+              <Resumo rotulo="Ações analisadas" valor={String(resultados.length)} />
+              <Resumo
+                rotulo="Score médio"
                 valor={scoreMedio ?? "-"}
                 legenda="de 0 a 10"
+                separado
               />
-              <StatCard
-                icone="alvo"
-                label="Tendência favorável"
-                valor={String(recomendadas)}
+              <Resumo
+                rotulo="Tendência favorável"
+                valor={String(favoraveis)}
                 legenda="pela fórmula do projeto"
+                separado
               />
             </div>
 
-            <div className="mt-6">
+            <div className="mt-10">
               <ResultadosTabela resultados={resultados} />
             </div>
 
-            <p className="mt-6 text-sm leading-relaxed text-mist">
+            <p className="mt-7 max-w-[760px] text-[13px] leading-[1.7] text-suave">
               Conteúdo informativo e educacional, não é recomendação de investimento.
               Os dados podem ter atraso ou erros, e a explicação pode ser gerada por
               inteligência artificial. Veja os{" "}
-              <Link href="/termos" className="underline underline-offset-2">
+              <Link
+                href="/termos"
+                className="text-ouro-claro underline underline-offset-2 hover:text-creme"
+              >
                 Termos de Uso
               </Link>
               .
             </p>
           </>
         )}
-      </section>
+      </Container>
     </main>
+  );
+}
+
+function Resumo({
+  rotulo,
+  valor,
+  legenda,
+  separado = false,
+}: {
+  rotulo: string;
+  valor: string;
+  legenda?: string;
+  separado?: boolean;
+}) {
+  return (
+    <div
+      className={`min-w-0 flex-[1_1_220px] py-7 ${
+        separado ? "border-ouro-linha sm:border-l sm:pl-8" : ""
+      }`}
+    >
+      <p className="rotulo tracking-[0.22em]">{rotulo}</p>
+      <p className="mt-2.5 font-display text-[44px] leading-none tabular-nums text-ouro-claro">
+        {valor}
+      </p>
+      {legenda && <p className="mt-2 text-[13px] text-suave">{legenda}</p>}
+    </div>
   );
 }

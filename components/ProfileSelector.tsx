@@ -13,7 +13,7 @@ export default function ProfileSelector({
   aoSelecionar,
 }: ProfileSelectorProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
+    <div className="flex flex-wrap gap-4">
       {PERFIS.map((perfil) => {
         const selecionado = perfil.id === perfilSelecionado;
         return (
@@ -22,15 +22,22 @@ export default function ProfileSelector({
             type="button"
             aria-pressed={selecionado}
             onClick={() => aoSelecionar(perfil.id)}
-            className={`rounded-md border p-5 text-left transition ${
+            className={`min-w-0 flex-[1_1_260px] rounded border p-6 text-left transition ${
               selecionado
-                ? "border-sage-500 bg-sage-500/[0.06]"
-                : "border-cream-border bg-cream-card hover:border-sage-500/40 dark:border-graphite-700 dark:bg-graphite-900"
+                ? "border-ouro-claro bg-superficie"
+                : "border-ouro-apagado hover:border-ouro"
             }`}
           >
-            <p className="font-display text-lg font-semibold">{perfil.nome}</p>
-            <p className="mt-1 text-sm text-mist">{perfil.descricao}</p>
-            <p className="label-eyebrow mt-3 text-brand">{perfil.foco}</p>
+            <span
+              className={`block font-display text-2xl ${
+                selecionado ? "text-ouro-claro" : "text-creme"
+              }`}
+            >
+              {perfil.nome}
+            </span>
+            <span className="mt-2 block text-[13px] leading-relaxed text-suave">
+              {perfil.descricao}
+            </span>
           </button>
         );
       })}
