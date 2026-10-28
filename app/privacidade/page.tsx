@@ -3,7 +3,7 @@ import LegalLayout from "@/components/LegalLayout";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade — RadarAlpha",
+  title: "Política de Privacidade | RadarAlpha",
   description: "Como o RadarAlpha trata dados, de acordo com a LGPD.",
 };
 

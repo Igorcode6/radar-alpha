@@ -82,7 +82,7 @@ export default function AnalysisPage() {
                   type="button"
                   aria-pressed={ativo}
                   onClick={() => alternarTicker(ticker)}
-                  className={`rounded-full border px-4 py-1.5 font-mono text-sm transition ${
+                  className={`rounded-md border px-4 py-1.5 font-mono text-sm transition ${
                     ativo
                       ? "border-sage-500 bg-sage-500/10 text-brand"
                       : "border-cream-border text-mist hover:border-sage-500/40 dark:border-graphite-700"
@@ -99,7 +99,7 @@ export default function AnalysisPage() {
           type="button"
           onClick={analisar}
           disabled={!perfil || tickersSelecionados.length === 0 || carregando}
-          className="mt-8 rounded-full bg-sage-600 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-700 disabled:cursor-not-allowed disabled:bg-cream-border disabled:text-mist"
+          className="mt-8 rounded-md bg-sage-600 px-6 py-3 font-mono text-sm uppercase tracking-wide text-cream transition hover:bg-sage-700 disabled:cursor-not-allowed disabled:bg-cream-border disabled:text-mist"
         >
           {carregando ? "Analisando..." : "Analisar"}
         </button>
@@ -110,7 +110,7 @@ export default function AnalysisPage() {
         {erro && (
           <p
             role="alert"
-            className="mt-4 rounded-xl border border-terracotta-500/40 bg-terracotta-500/10 px-4 py-3 text-sm text-negative"
+            className="mt-4 rounded-md border border-terracotta-500/40 bg-terracotta-500/10 px-4 py-3 text-sm text-negative"
           >
             {erro}
           </p>
@@ -135,14 +135,14 @@ export default function AnalysisPage() {
               <StatCard
                 icone="grafico"
                 label="Score médio"
-                valor={scoreMedio ?? "—"}
+                valor={scoreMedio ?? "-"}
                 legenda="de 0 a 10"
               />
               <StatCard
                 icone="alvo"
-                label="Recomendadas"
+                label="Tendência favorável"
                 valor={String(recomendadas)}
-                legenda="sinal de compra"
+                legenda="pela fórmula do projeto"
               />
             </div>
 

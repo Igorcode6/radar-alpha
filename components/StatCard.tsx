@@ -30,8 +30,8 @@ export default function StatCard({
   icone,
 }: StatCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cream-border bg-cream-card p-5 dark:border-graphite-700 dark:bg-graphite-900">
-      <div className="absolute -right-4 -top-4 flex h-16 w-16 items-center justify-center rounded-full border border-cream-border text-brand/70 dark:border-graphite-700">
+    <div className="relative overflow-hidden rounded-md border border-cream-border bg-cream-card p-5 dark:border-graphite-700 dark:bg-graphite-900">
+      <div className="absolute -right-4 -top-4 flex h-16 w-16 items-center justify-center rounded-md border border-cream-border text-brand/70 dark:border-graphite-700">
         <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           {ICONES[icone]}
         </svg>

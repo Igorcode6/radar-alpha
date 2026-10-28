@@ -21,9 +21,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Radar Alpha — Terminal de pesquisa de ações",
+  title: "RadarAlpha | Análise de ações da B3",
   description:
-    "Escolha seu perfil de investidor e veja uma leitura informativa das principais ações da B3. Conteúdo educacional, não é recomendação de investimento.",
+    "Projeto de estudo que dá uma nota às principais ações da B3 conforme o perfil de investidor. Conteúdo educacional, não é recomendação de investimento.",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
       >
         <a
           href="#conteudo"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-sage-600 focus:px-4 focus:py-2 focus:text-cream"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-sage-600 focus:px-4 focus:py-2 focus:text-cream"
         >
           Pular para o conteúdo
         </a>

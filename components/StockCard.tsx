@@ -11,9 +11,9 @@ const CORES_RECOMENDACAO: Record<AnaliseAcao["recomendacao"], string> = {
 };
 
 const LABEL_RECOMENDACAO: Record<AnaliseAcao["recomendacao"], string> = {
-  comprar: "Comprar",
-  observar: "Observar",
-  evitar: "Evitar",
+  comprar: "Favorável",
+  observar: "Neutra",
+  evitar: "Desfavorável",
 };
 
 function inicialBadge(ticker: string) {
@@ -25,17 +25,17 @@ export default function StockCard({ analise }: StockCardProps) {
   const positivo = indicadores.variacaoDia >= 0;
 
   return (
-    <div className="rounded-xl border border-cream-border bg-cream-card p-6 dark:border-graphite-700 dark:bg-graphite-900">
+    <div className="rounded-md border border-cream-border bg-cream-card p-6 dark:border-graphite-700 dark:bg-graphite-900">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-500/10 font-mono text-xs font-semibold text-brand">
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-sage-500/10 font-mono text-xs font-semibold text-brand">
             {inicialBadge(analise.ticker)}
           </span>
           <div>
             <div className="flex items-center gap-2">
               <p className="font-mono text-lg font-semibold">{analise.ticker}</p>
               <span
-                className={`rounded-full px-2 py-0.5 text-[10px] font-mono uppercase tracking-wide ${
+                className={`rounded-md px-2 py-0.5 text-[10px] font-mono uppercase tracking-wide ${
                   analise.origemAnalise === "dados_reais"
                     ? "bg-sage-500/10 text-brand"
                     : "bg-mist/10 text-mist"
@@ -77,7 +77,7 @@ export default function StockCard({ analise }: StockCardProps) {
         <div
           role="img"
           aria-label={`Score ${analise.score.toFixed(1)} de 10`}
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-sage-500/50 font-display text-lg font-semibold"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border-2 border-sage-500/50 font-display text-lg font-semibold"
         >
           {analise.score.toFixed(1)}
         </div>
@@ -87,7 +87,7 @@ export default function StockCard({ analise }: StockCardProps) {
       </div>
 
       <div
-        className={`mt-4 inline-block rounded-full border px-3 py-1 label-eyebrow ${CORES_RECOMENDACAO[analise.recomendacao]}`}
+        className={`mt-4 inline-block rounded-md border px-3 py-1 label-eyebrow ${CORES_RECOMENDACAO[analise.recomendacao]}`}
       >
         {LABEL_RECOMENDACAO[analise.recomendacao]}
       </div>

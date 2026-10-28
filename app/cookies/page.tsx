@@ -4,7 +4,7 @@ import LegalLayout from "@/components/LegalLayout";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Política de Cookies — RadarAlpha",
+  title: "Política de Cookies | RadarAlpha",
   description: "O que o RadarAlpha guarda no seu navegador.",
 };
 

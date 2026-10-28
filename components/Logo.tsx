@@ -1,7 +1,7 @@
 export default function Logo() {
   return (
     <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-500 text-cream">
+      <span className="flex h-9 w-9 items-center justify-center rounded-md bg-sage-500 text-cream">
         <svg
           aria-hidden="true"
           focusable="false"

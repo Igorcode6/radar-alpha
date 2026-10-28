@@ -50,8 +50,8 @@ Indicadores:
 Escreva uma explicação curta (2 a 4 frases, português do Brasil, linguagem simples, sem jargão
 desnecessário) dizendo por que essa ação recebeu esse score para esse perfil específico. Cite os
 números mais relevantes para esse perfil. Não dê conselho de investimento direto ("compre",
-"venda") — apenas explique o raciocínio por trás do score. Responda só com o texto da explicação,
-sem título, sem markdown, sem aspas.`;
+"venda"), apenas explique o raciocínio por trás do score. Responda só com o texto da explicação,
+sem título, sem markdown, sem aspas e sem travessões.`;
 }
 
 export async function gerarExplicacaoComIA(

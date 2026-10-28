@@ -7,9 +7,9 @@ type Filtro = "todas" | AnaliseAcao["recomendacao"];
 
 const FILTROS: { id: Filtro; label: string }[] = [
   { id: "todas", label: "Todas" },
-  { id: "comprar", label: "Comprar" },
-  { id: "observar", label: "Observar" },
-  { id: "evitar", label: "Evitar" },
+  { id: "comprar", label: "Favorável" },
+  { id: "observar", label: "Neutra" },
+  { id: "evitar", label: "Desfavorável" },
 ];
 
 const COR_SINAL: Record<AnaliseAcao["recomendacao"], string> = {
@@ -19,9 +19,9 @@ const COR_SINAL: Record<AnaliseAcao["recomendacao"], string> = {
 };
 
 const LABEL_SINAL: Record<AnaliseAcao["recomendacao"], string> = {
-  comprar: "Comprar",
-  observar: "Observar",
-  evitar: "Evitar",
+  comprar: "Favorável",
+  observar: "Neutra",
+  evitar: "Desfavorável",
 };
 
 export default function ResultadosTabela({ resultados }: { resultados: AnaliseAcao[] }) {
@@ -35,14 +35,14 @@ export default function ResultadosTabela({ resultados }: { resultados: AnaliseAc
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por sinal">
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por tendência">
         {FILTROS.map((f) => (
           <button
             key={f.id}
             type="button"
             aria-pressed={filtro === f.id}
             onClick={() => setFiltro(f.id)}
-            className={`rounded-lg border px-3.5 py-1.5 font-mono text-xs transition ${
+            className={`rounded-md border px-3.5 py-1.5 font-mono text-xs transition ${
               filtro === f.id
                 ? "border-sage-500 bg-sage-500/15 text-brand"
                 : "border-cream-border text-mist hover:border-sage-500/40 dark:border-graphite-700"
@@ -53,16 +53,16 @@ export default function ResultadosTabela({ resultados }: { resultados: AnaliseAc
         ))}
       </div>
 
-      <div className="mt-4 overflow-x-auto rounded-xl border border-cream-border bg-cream-card dark:border-graphite-700 dark:bg-graphite-900">
+      <div className="mt-4 overflow-x-auto rounded-md border border-cream-border bg-cream-card dark:border-graphite-700 dark:bg-graphite-900">
         <table className="w-full min-w-[560px] text-left text-sm">
-          <caption className="sr-only">Ações analisadas, com preço, variação, score e sinal</caption>
+          <caption className="sr-only">Ações analisadas, com preço, variação, score e tendência</caption>
           <thead>
             <tr className="border-b border-cream-border font-mono text-[11px] uppercase tracking-[0.12em] text-mist dark:border-graphite-700">
               <th scope="col" className="px-4 py-3 font-normal">Ação</th>
               <th scope="col" className="px-4 py-3 text-right font-normal">Preço</th>
               <th scope="col" className="px-4 py-3 text-right font-normal">Dia</th>
               <th scope="col" className="px-4 py-3 text-right font-normal">Score</th>
-              <th scope="col" className="px-4 py-3 text-right font-normal">Sinal</th>
+              <th scope="col" className="px-4 py-3 text-right font-normal">Tendência</th>
             </tr>
           </thead>
           <tbody>
@@ -81,14 +81,14 @@ export default function ResultadosTabela({ resultados }: { resultados: AnaliseAc
                         onClick={() => setAberta(expandida ? null : a.ticker)}
                         className="flex items-center gap-3 text-left"
                       >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sage-500/10 font-mono text-[11px] font-semibold text-brand">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-sage-500/10 font-mono text-[11px] font-semibold text-brand">
                           {a.ticker.slice(0, 2)}
                         </span>
                         <span>
                           <span className="block font-mono font-semibold">
                             {a.ticker}
                             <span
-                              className="ml-2 rounded-full bg-mist/10 px-1.5 py-0.5 text-[9px] uppercase text-mist"
+                              className="ml-2 rounded-md bg-mist/10 px-1.5 py-0.5 text-[9px] uppercase text-mist"
                               title={
                                 a.origemAnalise === "dados_reais"
                                   ? "Dados da brapi.dev. Podem ter atraso ou erros."
@@ -136,7 +136,7 @@ export default function ResultadosTabela({ resultados }: { resultados: AnaliseAc
             {visiveis.length === 0 && (
               <tr>
                 <td colSpan={5} className="px-4 py-6 text-center text-mist">
-                  Nenhuma ação com esse sinal.
+                  Nenhuma ação nessa tendência.
                 </td>
               </tr>
             )}

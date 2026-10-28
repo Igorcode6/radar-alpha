@@ -4,7 +4,7 @@ import LegalLayout from "@/components/LegalLayout";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso — RadarAlpha",
+  title: "Termos de Uso | RadarAlpha",
   description: "Regras de uso do RadarAlpha e avisos importantes sobre investimentos.",
 };
 
@@ -25,8 +25,8 @@ export default function TermosPage() {
 
       <h2>2. Não é recomendação de investimento</h2>
       <p>
-        Todo o conteúdo é informativo e educacional. As palavras “comprar”, “observar”
-        e “evitar” são apenas o resultado de uma fórmula automática, não uma
+        Todo o conteúdo é informativo e educacional. Os rótulos “favorável”, “neutra”
+        e “desfavorável” são apenas o resultado de uma fórmula automática, não uma
         recomendação, oferta, consultoria ou análise personalizada de investimentos.
         O site não conhece a sua situação financeira, seus objetivos nem sua
         tolerância a risco.

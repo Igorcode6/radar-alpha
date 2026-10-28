@@ -21,6 +21,9 @@ export default function Footer() {
           <Link href="/cookies" className="underline underline-offset-2 hover:text-ink dark:hover:text-cream">
             Política de Cookies
           </Link>
+          <a href={SITE.github} className="underline underline-offset-2 hover:text-ink dark:hover:text-cream">
+            Código no GitHub
+          </a>
         </nav>
         <p className="mt-5">
           {SITE.nome} é um projeto pessoal de {SITE.responsavel}, sem empresa

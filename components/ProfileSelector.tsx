@@ -22,7 +22,7 @@ export default function ProfileSelector({
             type="button"
             aria-pressed={selecionado}
             onClick={() => aoSelecionar(perfil.id)}
-            className={`rounded-xl border p-5 text-left transition ${
+            className={`rounded-md border p-5 text-left transition ${
               selecionado
                 ? "border-sage-500 bg-sage-500/[0.06]"
                 : "border-cream-border bg-cream-card hover:border-sage-500/40 dark:border-graphite-700 dark:bg-graphite-900"
