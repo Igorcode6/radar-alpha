@@ -92,7 +92,7 @@ export default function AnalysisPage() {
                 className={`min-h-[44px] rounded border px-5 text-sm font-semibold tabular-nums transition ${
                   ativo
                     ? "border-ouro bg-superficie text-ouro-claro"
-                    : "border-ouro-apagado text-suave hover:border-ouro"
+                    : "border-ouro-apagado text-creme hover:border-ouro"
                 }`}
               >
                 {ticker}

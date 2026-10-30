@@ -55,7 +55,7 @@ export default function ResultadosTabela({ resultados }: { resultados: AnaliseAc
             type="button"
             aria-pressed={filtro === f.id}
             onClick={() => setFiltro(f.id)}
-            className={`min-h-[40px] rounded border px-4 text-[13px] transition ${
+            className={`min-h-[44px] rounded border px-5 text-sm transition ${
               filtro === f.id
                 ? "border-ouro bg-superficie text-ouro-claro"
                 : "border-ouro-apagado text-creme hover:border-ouro"

@@ -24,7 +24,7 @@ export default function ProfileSelector({
             onClick={() => aoSelecionar(perfil.id)}
             className={`min-w-0 flex-[1_1_260px] rounded border p-6 text-left transition ${
               selecionado
-                ? "border-ouro-claro bg-superficie"
+                ? "border-ouro bg-superficie"
                 : "border-ouro-apagado hover:border-ouro"
             }`}
           >

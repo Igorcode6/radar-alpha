@@ -24,12 +24,7 @@ const PASSOS = [
 export default function LandingPage() {
   return (
     <main id="conteudo" className="flex-1">
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background: "radial-gradient(ellipse at 78% 40%, #1f1810 0%, #0A0909 62%)",
-        }}
-      >
+      <section className="relative overflow-hidden">
         {/* Textura sutil de couro: só aqui, em baixa opacidade, atrás do título. */}
         <svg
           aria-hidden="true"
@@ -121,9 +116,6 @@ export default function LandingPage() {
                 </h3>
                 <p className="min-w-0 flex-[1_1_280px] text-[15px] leading-[1.7] text-suave">
                   {perfil.descricao}
-                </p>
-                <p className="min-w-0 flex-[1_1_280px] text-sm leading-[1.7] text-suave">
-                  {perfil.foco}
                 </p>
               </div>
             ))}
